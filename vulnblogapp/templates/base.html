@@ -21,10 +21,20 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categories' %}">All Categories</a>
+                </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add-post' %}">Add Post</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add-category' %}">Add Category</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'edit-profile' %}">Edit Profile</a>
                 </li>
 
                 <li class="nav-item">
@@ -32,6 +42,8 @@
                 </li>
 
             {% else %}
+                
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
@@ -40,6 +52,7 @@
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
             {% endif %}
+                
             </ul>
             
           </div>

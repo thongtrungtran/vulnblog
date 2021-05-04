@@ -6,19 +6,26 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <h1>Delete Post</h1>
-    <br>
-    <h3>Delete : {{post.title}}</h3>
-    <div class="form-group">
-        <form action="" method="post">
-            {% csrf_token %}
-            <strong>Be sure to delete!</strong><br>
-            <button class="btn btn-warning" type="submit">Delete</button>
-        </form>    
-    </div>
+    {% if user.id == post.author.id %}
+        <h1>Delete Post</h1>
+        <br>
+        <h3>Delete : {{post.title}}</h3>
+        <div class="form-group">
+            <form action="" method="post">
+                {% csrf_token %}
+                <strong>Be sure to delete!</strong><br>
+                <button class="btn btn-warning" type="submit">Delete</button>
+                <a href="{% url 'article-detail' post.pk %}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+            </form>    
+        </div>
+    {% else %}
+        <strong>You're not allowed here!</strong>
+    {% endif %}
 {% else %}
-<strong>You're not allowed here!</strong>
+    <strong>You're not allowed here!</strong>
+    <br><a href="{% url 'home' %}"><button type="button" class="btn btn-secondary">Back</button></a>
 {% endif %}
-
+    
+    
 {% endblock %}
 

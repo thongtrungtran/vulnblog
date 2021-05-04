@@ -6,17 +6,25 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
     <h1>Update Post</h1>
     <br>
     <div class="form-group">
         <form action="" method="post">
             {% csrf_token %}
-            {{form.as_p}}
+            {{ form.media }}
+            {{ form.as_p }}
             <button class="btn btn-secondary" type="submit">Update</button>
+            <a href="{% url 'article-detail' post.pk %}"><button type="button" class="btn btn-secondary">Cancel</button></a>
         </form>    
     </div>
+    {% else %}
+        <strong>You're not allowed here!</strong>
+        <br><a href="{% url 'home' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+    {% endif %}
 {% else %}
     <strong>You're not allowed here!</strong>
+    <br><a href="{% url 'home' %}"><button type="button" class="btn btn-secondary">Back</button></a>
 {% endif %}
 
 
