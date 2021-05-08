@@ -41,19 +41,7 @@ class ArticleDetailView(DetailView):
     model = Post
     template_name = "article_details.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)        
-        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
-
-        liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists():
-            liked = True
-
-        context['total_likes'] = total_likes
-        context['liked'] = liked
-        return context
-
+    
 # View for adding posts
 class AddPostView(CreateView):
     model = Post
@@ -66,6 +54,18 @@ class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html'
     fields = '__all__'
+def get_context_data(self, *args, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)        
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
+        context['total_likes'] = total_likes
+        context['liked'] = liked
+        return context
 
 # View for update post
 class UpdatePostView(UpdateView):

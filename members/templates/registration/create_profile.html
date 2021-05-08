@@ -1,27 +1,24 @@
 {% extends 'base.html' %}
 {%block title%}
-    Create a new post
+    Create New Profile
 {%endblock%}
 
 {% block content %}
 
 
 {% if user.is_authenticated %}
-    <h1>Add Post</h1>
+    <h1>Create New Profile</h1>
     <br>
     <div class="form-group">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.media }}
+            
             {{ form.as_p }}
-            <button class="btn btn-secondary" type="submit">Add Post</button>
+            <button class="btn btn-secondary" type="submit">Create</button>
             <a href="{% url 'home' %}"><button type="button" class="btn btn-secondary">Cancel</button></a>
         </form>    
     </div>
-    <script>
-        var name = "{{user.id}}";
-        document.getElementById("post_author").value=name;
-    </script>
+    
 {% else %}
     <strong>You're not allowed here!</strong>
     <br><a href="{% url 'home' %}"><button type="button" class="btn btn-secondary">Back</button></a>

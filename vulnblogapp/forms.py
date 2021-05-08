@@ -14,7 +14,7 @@ def getCategoryChoices():
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title','title_tag','author','category','snippet','body')
+        fields = ('title','title_tag','author','category','snippet','body','header_image')
         choices = getCategoryChoices()
         widgets = {
             'title':forms.TextInput(attrs={'class': 'form-control'}),
