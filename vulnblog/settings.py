@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'vulnblog',
         'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'HOST': 'postgresdb',
         'PORT': '5432',
     }
 }
