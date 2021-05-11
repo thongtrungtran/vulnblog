@@ -58,8 +58,10 @@ class EditProfileView(generic.UpdateView):
 # View for create user profile
 class CreateProfileView(generic.CreateView):
     model = Profile
-    template_name = 'registration/create_profile.html'
     form_class = ProfileForm
+    template_name = 'registration/create_profile.html'
+    # fields = '__all__'
+    
     
     def form_valid(self, form):
         form.instance.user = self.request.user

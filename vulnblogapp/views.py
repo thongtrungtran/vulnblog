@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Comment, Post, Category
+from .forms import PostForm, EditForm, CommentForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 # Create your views here.
@@ -74,8 +74,33 @@ class UpdatePostView(UpdateView):
     template_name = 'update_post.html'
     # fields = ['title','title_tag','body']
 
+    def form_valid(self, form):
+        self.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        if kwargs != None:
+            return reverse_lazy('article-detail',kwargs={'pk':self.post_id})
+        
+
 # View for delete post
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+# View for adding comments
+class AddCommentView(CreateView):
+    model = Comment
+    template_name = 'add_comment.html'
+    # fields = '__all__'
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        self.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        if kwargs != None:
+            return reverse_lazy('article-detail',kwargs={'pk':self.post_id})

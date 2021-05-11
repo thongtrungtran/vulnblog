@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+    postgresdb:
+        container_name: postgresdb
+        restart: always
+        image: postgres:latest
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        environment: 
+            - POSTGRES_DB=vulnblog
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+        ports: 
+            - 5432:5432
+    
+    adminer:
+        image: adminer
+        restart: always
+        container_name: adminer
+        ports:
+          - 8081:8080

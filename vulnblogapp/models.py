@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
 # Create your models here.
@@ -29,6 +28,9 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def get_absolute_url(self):
+        return reverse('home')
+
 
 
 # Post model
@@ -55,3 +57,13 @@ class Post(models.Model):
     # get the number of total likes of a post    
     def total_likes(self):
         return self.likes.count()
+
+# Comment model
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name = "comments", on_delete = models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.name)

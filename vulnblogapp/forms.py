@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Category
+from .models import Comment, Post,Category
 
 # get category choices for selection in form
 def getCategoryChoices():
@@ -39,5 +39,16 @@ class EditForm(forms.ModelForm):
             'category':forms.Select(choices=choices,attrs={'class': 'form-control'}),
             # 'author':forms.Select(attrs={'class': 'form-control'}),
             'snippet':forms.Textarea(attrs={'class': 'form-control'}),
+            'body':forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+# Form for adding comments
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name','body')
+
+        widgets = {
+            'name':forms.TextInput(attrs={'class': 'form-control'}),
             'body':forms.Textarea(attrs={'class': 'form-control'}),
         }

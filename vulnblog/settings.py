@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-73+86$jhydll00l7^d*o4t*6v)d&*i6!vzw@tn121$p(48%=fv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vulnblogapp',
     'members',
-    'ckeditor'
+    'ckeditor',
+    'psycopg2'
 ]
 
 MIDDLEWARE = [
@@ -78,9 +79,17 @@ WSGI_APPLICATION = 'vulnblog.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vulnblog',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
